@@ -121,4 +121,4 @@ Keep the horizon in sight. It is the horizon that gives direction. The wind will
 
 > But as long as you don't lose sight of the horizon, you'll always be able to find another way.
 
-![4_Keep_The_Horizon_In_Sight.jpg](https://raw.githubusercontent.com/Leon740/explorer/refs/heads/master/meta/images/4_Keep_The_Horizon_In_Sight.jpg)
+![4_Keep_The_Horizon_In_Sight.jpg](https://raw.githubusercontent.com/Leon740/explorer/refs/heads/master/essays/meta/images/4_Keep_The_Horizon_In_Sight.jpg)

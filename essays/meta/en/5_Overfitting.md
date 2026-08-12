@@ -12,4 +12,4 @@ My approach: treat every problem as local — as yours to solve. As Roosevelt pu
 
 Struggling with your job search doesn't mean you should give up — it might mean it's time to try a different approach: rewrite your resume, ask others to review it, change your strategy. Same with sports: bad sessions happen, sometimes even bad weeks. Maybe you're overtrained and don't realize it. Either way, it's on you to notice, adjust, and keep going.
 
-![5_Overfitting.jpg](https://raw.githubusercontent.com/Leon740/explorer/refs/heads/master/meta/images/5_Overfitting.jpg)
+![5_Overfitting.jpg](https://raw.githubusercontent.com/Leon740/explorer/refs/heads/master/essays/meta/images/5_Overfitting.jpg)

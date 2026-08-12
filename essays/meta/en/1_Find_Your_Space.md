@@ -84,4 +84,4 @@ Okay, I have a “stable asset” that brings me dividends. How do I grow it? - 
 
 > To work, gentlemen
 
-![1_Find_Your_Space.png](https://raw.githubusercontent.com/Leon740/explorer/refs/heads/master/meta/images/1_Find_Your_Space.png)
+![1_Find_Your_Space.png](https://raw.githubusercontent.com/Leon740/explorer/refs/heads/master/essays/meta/images/1_Find_Your_Space.png)
