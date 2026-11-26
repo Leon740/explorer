@@ -1,50 +1,76 @@
-// Problem
-// Direct access to an object is undesirable due to business logic: access control etc.
-// Solution
-// Proxy: substitute object that implements same interface and controls access to the original object.
-
 // Subject
-interface EngineShape {
-  start(): void;
+// Proxy and RealSubject implement same interface.
+interface ImageInterface {
+  getSource(): string;
+  display(): void;
 }
 
 // RealSubject
-class Engine implements EngineShape {
-  start(): void {
-    console.log("Engine started");
+// Performs expensive operation.
+class Image implements ImageInterface {
+  constructor(private readonly source: string) {
+    this.load();
+  }
+  private load(): void {
+    console.log(`Loading image from ${this.source}`);
+  }
+
+  getSource(): string {
+    return this.source;
+  }
+  display(): void {
+    console.log(`Displaying image ${this.source}`);
   }
 }
 
 // Proxy
-class EngineProxy implements Engine {
-  private engine: Engine;
-  private isAuthorized: boolean;
-  constructor({
-    engine,
-    isAuthorized,
-  }: {
-    engine: Engine;
-    isAuthorized: boolean;
-  }) {
-    this.engine = engine;
-    this.isAuthorized = isAuthorized;
+// Controls access to RealSubject.
+// The image is not created until display() is called.
+class ImageProxy implements ImageInterface {
+  private image?: Image;
+
+  constructor(private readonly source: string) {}
+
+  getSource(): string {
+    return this.source;
   }
-
-  start(): void {
-    if (!this.isAuthorized) {
-      console.log("Access denied");
-      return;
+  display(): void {
+    if (!this.image) {
+      console.log("Starting to load");
+      this.image = new Image(this.source);
     }
-
-    this.engine.start();
+    this.image.display();
   }
 }
 
 // Client
-const engine = new Engine();
+// Client depends on ImageInterface.
+// It does not know whether it received a Proxy or RealSubject.
+class Gallery {
+  constructor(private readonly images: ImageInterface[]) {}
 
-const engineProxy_0 = new EngineProxy({ engine, isAuthorized: false });
-engineProxy_0.start();
+  showImages(): void {
+    for (const image of this.images) {
+      console.log(image.getSource());
+    }
+  }
+  openImage(index: number): void {
+    const image = this.images[index];
 
-const engineProxy_1 = new EngineProxy({ engine, isAuthorized: true });
-engineProxy_1.start();
+    if (!image) {
+      console.log("Image does not exist");
+      return;
+    }
+
+    image.display();
+  }
+}
+
+const gallery = new Gallery([
+  new ImageProxy("./images/me.jpg"),
+  new ImageProxy("./images/Audi_RS6.jpg"),
+  new ImageProxy("./images/Wife.jpg"),
+  new ImageProxy("./images/Home.jpg"),
+]);
+gallery.showImages();
+gallery.openImage(1);
