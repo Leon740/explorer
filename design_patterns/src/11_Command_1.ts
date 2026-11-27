@@ -5,9 +5,9 @@
 
 enum ROOMS {
   WORKROOM = "Workroom",
-  BATHROOM = "Bathroom",
   BEDROOM = "Bedroom",
-  LIVINGROOM = "Livingroom",
+  BATHROOM = "Bathroom",
+  KITCHEN = "Kitchen",
   GARAGE = "Garage",
 }
 
@@ -68,7 +68,7 @@ interface GarageInterface {
   close(): void;
 }
 class Garage implements GarageInterface {
-  constructor(private readonly light: Light) {}
+  constructor() {}
 
   private state: GarageState = "Closed";
   private updateState(newState: GarageState): void {
@@ -141,24 +141,22 @@ class MacroCommand implements CommandInterface {
 }
 
 // Client
-const roomsLights: Light[] = Object.values(ROOMS).map(
-  (room) => new Light(room),
+const roomLights: Light[] = Object.values(ROOMS).map((room) => new Light(room));
+const turnOnAllLightsCommand = new MacroCommand(
+  roomLights.map((light) => new TurnLightOnCommand(light)),
 );
-const turnAllLightsOnCommand = new MacroCommand(
-  roomsLights.map((light) => new TurnLightOnCommand(light)),
-);
-const turnAllLightsOffCommand = new MacroCommand(
-  roomsLights.map((light) => new TurnLightOffCommand(light)),
+const turnOffAllLightsCommand = new MacroCommand(
+  roomLights.map((light) => new TurnLightOffCommand(light)),
 );
 
-const garage = new Garage(new Light(ROOMS.GARAGE));
+const garage = new Garage();
 const openGarageCommand = new OpenGarageCommand(garage);
 const closeGarageCommand = new CloseGarageCommand(garage);
 
 console.log("\n");
 console.log("Departing from home");
 const departFromHomeCommand = new MacroCommand([
-  turnAllLightsOffCommand,
+  turnOffAllLightsCommand,
   closeGarageCommand,
 ]);
 houseController.pressButton(departFromHomeCommand);
@@ -166,7 +164,7 @@ houseController.pressButton(departFromHomeCommand);
 console.log("\n");
 console.log("Arriving to home");
 const arriveToHomeCommand = new MacroCommand([
-  turnAllLightsOnCommand,
+  turnOnAllLightsCommand,
   openGarageCommand,
 ]);
 houseController.pressButton(arriveToHomeCommand);
